@@ -17,9 +17,9 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        [[self layer] setCornerRadius:2];
-        [[self layer] setBorderWidth:1];
-        [[self layer] setBorderColor: [UIColor blueColor].CGColor];
+        [[self layer] setCornerRadius:5];
+        [[self layer] setBorderWidth:3];
+        [[self layer] setBorderColor: CLR_SYS_BLUE.CGColor];
         
         [self setTitle:@"" forState:UIControlStateNormal];
      

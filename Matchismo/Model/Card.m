@@ -10,4 +10,17 @@
 
 @implementation Card
 
+-(int)match:(NSArray *)otherCards
+{
+    int score = 0;
+    
+    for (Card *c in otherCards) {
+        if ([[c contents] isEqualToString:[self contents]]) {
+            score = 1;
+        }
+    }
+    
+    return score;
+}
+
 @end
