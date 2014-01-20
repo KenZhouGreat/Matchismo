@@ -9,14 +9,16 @@
 #import "CardGameViewController.h"
 #import "KZ_UIRoudedButton.h"
 #import "PlayingCardDeck.h"
+#import "PlayingCard.h"
 
 
 @interface CardGameViewController ()
 
 
-@property (strong, nonatomic) IBOutlet KZ_UIRoudedButton *card2;
+@property (strong, nonatomic) IBOutlet KZ_UIRoudedButton *card;
 
-@property (strong, nonatomic) PlayingCardDeck *cardDeck;
+@property (strong, nonatomic) Deck *cardDeck;
+
 @property (strong, nonatomic) IBOutlet UICollectionView *cardCollectionView;
 
 @end
@@ -26,12 +28,14 @@
 static CGFloat CARD_BUTTON_WIDTH = 60;
 static CGFloat CARD_BUTTON_HEIGH = 82;
 
+- (Deck *)cardDeck{
+    if (!_cardDeck) {
+        _cardDeck = [[PlayingCardDeck alloc] init];
+    }
+    return _cardDeck;
+}
+
 - (IBAction)flipCard:(id)sender {
-    if (![sender isSelected]) {
-        NSString *cardContents = [[self.cardDeck drawRandomCard] contents];
-        [sender setTitle:cardContents forState:UIControlStateSelected];
-    }    
-    
     [sender setSelected:![sender isSelected]];
 }
 
@@ -72,9 +76,11 @@ static CGFloat CARD_BUTTON_HEIGH = 82;
     KZ_UIRoudedButton *newCardButton = [[KZ_UIRoudedButton alloc] initWithFrame:newCardButtonFrame];
     [newCardButton setTitleColor: CLR_SYS_BLUE forState:UIControlStateNormal];
     
+    Card *newCard = [[self cardDeck] drawRandomCard];
+    [newCardButton setTitle:newCard.contents  forState:UIControlStateSelected];
     
     [newCardButton addTarget:self action:@selector(flipCard:) forControlEvents:UIControlEventTouchUpInside];
-    [self setCard2:newCardButton];
+    [self setCard:newCardButton];
     [[cardCell contentView] addSubview:newCardButton];
     
     return cardCell;
@@ -87,7 +93,7 @@ static CGFloat CARD_BUTTON_HEIGH = 82;
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 20;
+    return 16;
 }
 
 
