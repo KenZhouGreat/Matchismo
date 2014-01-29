@@ -48,8 +48,9 @@
             
             self.score -= FLIP_COST;
         }
-        card.faceUp = !card.isFaceUp;
+        
     }
+    card.faceUp = !card.isFaceUp;
 }
 
 - (Card *)cardAtIndex:(NSUInteger)index{

@@ -10,40 +10,70 @@
 #import "KZ_UIRoudedButton.h"
 #import "PlayingCardDeck.h"
 #import "PlayingCard.h"
+#import "CardMatchingGame.h"
+#import "GameResult.h"
 
 
 @interface CardGameViewController ()
 
+@property (strong, nonatomic) IBOutlet UILabel *scoreLabel;
+
 
 @property (strong, nonatomic) IBOutlet KZ_UIRoudedButton *card;
 
-@property (strong, nonatomic) Deck *cardDeck;
-
 @property (strong, nonatomic) IBOutlet UICollectionView *cardCollectionView;
+
+@property (strong, nonatomic) CardMatchingGame *game;
+@property (strong, nonatomic) IBOutlet UIButton *dealButton;
+
+@property (strong, nonatomic) GameResult *gameResult;
 
 @end
 
 @implementation CardGameViewController
 
 static CGFloat CARD_BUTTON_WIDTH = 60;
-static CGFloat CARD_BUTTON_HEIGH = 82;
+static CGFloat CARD_BUTTON_HEIGH = 80;
 
-- (Deck *)cardDeck{
-    if (!_cardDeck) {
-        _cardDeck = [[PlayingCardDeck alloc] init];
+- (GameResult *)gameResult{
+    if (!_gameResult) {
+        _gameResult = [[GameResult alloc] init];
     }
-    return _cardDeck;
+    return _gameResult;
 }
 
+- (CardMatchingGame *)game{
+    if (!_game) {
+        _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardCollectionView numberOfItemsInSection:0] usingDeck:[[PlayingCardDeck alloc] init]];
+    }
+    return _game;
+}
+
+- (IBAction)dealGame:(id)sender {
+    self.game = nil;
+    self.gameResult = nil;
+    [self.cardCollectionView reloadData];
+    [self updateUI];
+}
+
+
 - (IBAction)flipCard:(id)sender {
-    [sender setSelected:![sender isSelected]];
+    
+    UIButton *btn= (UIButton *)sender;
+    //model
+    if ([btn isKindOfClass:[UIButton class]]) {
+        [self.game flipCardAtIndex:btn.tag];
+    }
+    self.gameResult.score = self.game.score;
+    [self updateUI];
+    
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    [self setCardDeck:[[PlayingCardDeck alloc] init]];
+
     
     
 	// Do any additional setup after loading the view, typically from a nib.
@@ -69,18 +99,21 @@ static CGFloat CARD_BUTTON_HEIGH = 82;
 {
     NSString *cellReuseIdentifier = @"cardCell";
     UICollectionViewCell *cardCell = [collectionView dequeueReusableCellWithReuseIdentifier:cellReuseIdentifier forIndexPath:indexPath];
+    [[[cardCell contentView] subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     CGPoint viewCenter = [[cardCell contentView] center];
+
+    
     CGRect newCardButtonFrame = CGRectMake(	viewCenter.x - CARD_BUTTON_WIDTH/2, viewCenter.y - CARD_BUTTON_HEIGH/2, CARD_BUTTON_WIDTH, CARD_BUTTON_HEIGH);
     
     KZ_UIRoudedButton *newCardButton = [[KZ_UIRoudedButton alloc] initWithFrame:newCardButtonFrame];
     [newCardButton setTitleColor: CLR_SYS_BLUE forState:UIControlStateNormal];
     
-    Card *newCard = [[self cardDeck] drawRandomCard];
+    Card *newCard = [self.game cardAtIndex:indexPath.row];
     [newCardButton setTitle:newCard.contents  forState:UIControlStateSelected];
-    
+    [newCardButton setTitle:newCard.contents  forState:UIControlStateSelected | UIControlStateDisabled];
+    [newCardButton setTag:indexPath.row];
     [newCardButton addTarget:self action:@selector(flipCard:) forControlEvents:UIControlEventTouchUpInside];
-    [self setCard:newCardButton];
     [[cardCell contentView] addSubview:newCardButton];
     
     return cardCell;
@@ -96,5 +129,26 @@ static CGFloat CARD_BUTTON_HEIGH = 82;
     return 16;
 }
 
+
+- (void)updateUI{
+    //1. update the card to be flipped/unflipped
+    for (int i = 0; i < [self.cardCollectionView numberOfItemsInSection:0]; i++) {
+        UICollectionViewCell *cell = [self.cardCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+        Card *card = [self.game cardAtIndex:i];
+        for (UIButton *b in [cell.contentView subviews]) {
+            
+            if ([b isKindOfClass:[UIButton class]]) {
+                b.selected = card.faceUp;
+                //2. playable/unplayable
+                [b setEnabled:!card.unplayable];
+                if (card.unplayable) {
+                    [b setAlpha:0.5];
+                }
+            }
+        }
+    }
+    //3. score
+    self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
+}
 
 @end
