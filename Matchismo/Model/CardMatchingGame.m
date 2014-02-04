@@ -64,7 +64,7 @@
         for (int i =0; i < count; i++) {
             Card *card = [deck drawRandomCard];
             if (card) {
-                self.cards[i] = card;
+                [self.cards addObject:card];
             }
             else{
                 self = nil;
