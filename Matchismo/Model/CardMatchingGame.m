@@ -10,6 +10,8 @@
 @interface CardMatchingGame()
 @property (readwrite, nonatomic) int score;
 @property (strong, nonatomic) NSMutableArray *cards; //of card
+@property (readwrite, nonatomic, getter = isGameStarted) BOOL gameStarted;
+
 @end
 
 
@@ -22,29 +24,62 @@
     return _cards;
 }
 
+- (gameModeType)gameMode{
+    if (!_gameMode){
+        _gameMode = kTwoCardMode;
+    }
+    return _gameMode;
+}
+
+- (BOOL)isGameStarted{
+    if (!_gameStarted) {
+        _gameStarted = NO;
+    }
+    return _gameStarted;
+}
+
 #define MATCH_BONUS 4
 #define MISMATCH_PENALTY 2
 #define FLIP_COST 1
 
 - (void) flipCardAtIndex:(NSUInteger)index{
+    self.gameStarted = YES;
     Card *card = [self cardAtIndex:index];
     if (!card.faceUp) {
         if (card && !card.isUnplayable) {
+            NSMutableArray *validOtherCards = [[NSMutableArray alloc] init];
             for (Card *otherCard in self.cards) {
                 if (otherCard.isFaceUp && !otherCard.isUnplayable) {
-                    int matchScore = [card match:@[otherCard]];
-                    if (matchScore) {
-                        card.unplayable = YES;
-                        otherCard.unplayable = YES;
-                        self.score += matchScore * MATCH_BONUS;
+                    //construct two different otherCards array based on the game mode
+                    [validOtherCards addObject:otherCard];
+                    if ([validOtherCards count] < self.gameMode + 1) {
+                        continue;
                     }
                     else{
-                        otherCard.faceUp = NO;
-                        self.score -= MISMATCH_PENALTY;
+                        break;
                     }
-                    break;
                 }
             }
+            
+            if ([validOtherCards count] == self.gameMode + 1) {
+                int matchScore = [card match:validOtherCards];
+                if (matchScore) {
+                    card.unplayable = YES;
+                    for (Card *c in validOtherCards) {
+                        c.unplayable = YES;
+                    }
+                    self.score += matchScore * MATCH_BONUS;
+                }
+                else{
+                    for (Card *c in validOtherCards) {
+                        c.faceUp = NO;
+                    }
+                    self.score -= MISMATCH_PENALTY;
+                }
+            }
+         
+            
+     
             
             self.score -= FLIP_COST;
         }

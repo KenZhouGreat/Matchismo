@@ -88,7 +88,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Score:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WmH-30-2cp">
-                                <rect key="frame" x="20" y="389" width="115" height="20"/>
+                                <rect key="frame" x="20" y="392" width="71" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <nil key="highlightedColor"/>
@@ -126,6 +126,17 @@
                                     <action selector="dealGame:" destination="iB5-Zt-gMe" eventType="touchUpInside" id="msw-6B-wNk"/>
                                 </connections>
                             </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="7DC-fa-rGw">
+                                <rect key="frame" x="99" y="387" width="123" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="2 Cards"/>
+                                    <segment title="3 Cards"/>
+                                </segments>
+                                <connections>
+                                    <action selector="changeGameMode:" destination="iB5-Zt-gMe" eventType="valueChanged" id="R48-xI-jQe"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -133,6 +144,7 @@
                     <connections>
                         <outlet property="cardCollectionView" destination="BEf-ye-Hwp" id="5c1-Lr-8Mc"/>
                         <outlet property="dealButton" destination="Mjl-My-vqv" id="s0i-83-ZJL"/>
+                        <outlet property="gameModeSwtich" destination="7DC-fa-rGw" id="FFF-L9-jY4"/>
                         <outlet property="scoreLabel" destination="WmH-30-2cp" id="GUM-yF-4lw"/>
                     </connections>
                 </viewController>

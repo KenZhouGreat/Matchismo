@@ -17,10 +17,10 @@
     
     for (PlayingCard *pc in otherCards) {
         if ([[pc suit] isEqualToString:[self suit]]) {
-            score = 1;
+            score += 1;
         }
         else if (pc.rank == self.rank){
-            score = 3;
+            score += 3;
         }
     }
     

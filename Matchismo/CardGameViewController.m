@@ -27,6 +27,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *dealButton;
 
 @property (strong, nonatomic) GameResult *gameResult;
+@property (strong, nonatomic) IBOutlet UISegmentedControl *gameModeSwtich;
 
 @end
 
@@ -50,13 +51,28 @@ static CGFloat CARD_BUTTON_HEIGH = 80;
 }
 
 - (IBAction)dealGame:(id)sender {
-    self.game = nil;
-    self.gameResult = nil;
-    [self.cardCollectionView reloadData];
-    [self updateUI];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Are you sure to finish?"
+                                                    message:@"By clicking 'OK' you will start a new game."
+                                                   delegate:self
+                                          cancelButtonTitle:nil
+                                          otherButtonTitles:@"OK",@"Cancel",nil];
+    [alert show];
+   
 }
 
+- (IBAction)changeGameMode:(UISegmentedControl *)sender {
+    self.game.gameMode = sender.selectedSegmentIndex;
+}
 
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    // the user clicked OK
+    if (buttonIndex == 0) {
+        self.game = nil;
+        self.gameResult = nil;
+        [self.cardCollectionView reloadData];
+        [self updateUI];
+    }
+}
 - (IBAction)flipCard:(id)sender {
     
     UIButton *btn= (UIButton *)sender;
@@ -86,13 +102,6 @@ static CGFloat CARD_BUTTON_HEIGH = 80;
     
     
 }
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -149,6 +158,9 @@ static CGFloat CARD_BUTTON_HEIGH = 80;
     }
     //3. score
     self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
+    //game mode
+    self.gameModeSwtich.selectedSegmentIndex = self.game.gameMode;    
+    self.gameModeSwtich.enabled = !self.game.isGameStarted;
 }
 
 @end

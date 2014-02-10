@@ -10,6 +10,11 @@
 #import "Card.h"
 #import "Deck.h"
 
+typedef enum {
+    kTwoCardMode,
+    kThreeCardMode
+}gameModeType;
+
 @interface CardMatchingGame : NSObject
 
 //designated initializer
@@ -22,5 +27,7 @@
 
 
 @property (nonatomic, readonly) int score;
+@property (nonatomic) gameModeType gameMode;
+@property (nonatomic, getter = isGameStarted, readonly) BOOL gameStarted;
 
 @end
