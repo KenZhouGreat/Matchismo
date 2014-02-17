@@ -22,6 +22,7 @@
 @property (strong, nonatomic) IBOutlet KZ_UIRoudedButton *card;
 
 @property (strong, nonatomic) IBOutlet UICollectionView *cardCollectionView;
+@property (strong, nonatomic) IBOutlet UILabel *verboseLabel;
 
 @property (strong, nonatomic) CardMatchingGame *game;
 @property (strong, nonatomic) IBOutlet UIButton *dealButton;
@@ -161,6 +162,8 @@ static CGFloat CARD_BUTTON_HEIGH = 80;
     //game mode
     self.gameModeSwtich.selectedSegmentIndex = self.game.gameMode;    
     self.gameModeSwtich.enabled = !self.game.isGameStarted;
+    //verbose
+    self.verboseLabel.text = self.game.verbose;
 }
 
 @end

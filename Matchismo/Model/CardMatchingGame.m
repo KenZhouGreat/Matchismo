@@ -11,7 +11,7 @@
 @property (readwrite, nonatomic) int score;
 @property (strong, nonatomic) NSMutableArray *cards; //of card
 @property (readwrite, nonatomic, getter = isGameStarted) BOOL gameStarted;
-
+@property (nonatomic, readwrite) NSString *verbose;
 @end
 
 
@@ -63,12 +63,17 @@
             
             if ([validOtherCards count] == self.gameMode + 1) {
                 int matchScore = [card match:validOtherCards];
+                
+                
+                
+                
                 if (matchScore) {
                     card.unplayable = YES;
                     for (Card *c in validOtherCards) {
                         c.unplayable = YES;
                     }
                     self.score += matchScore * MATCH_BONUS;
+                    
                 }
                 else{
                     for (Card *c in validOtherCards) {
@@ -76,6 +81,14 @@
                     }
                     self.score -= MISMATCH_PENALTY;
                 }
+                
+                self.verbose = [NSString stringWithFormat:@"Card %@ %@", card.contents, matchScore? @"matches " : @"mismatches "];
+                
+                for (Card *c in validOtherCards) {
+                    self.verbose = [self.verbose stringByAppendingString:[NSString stringWithFormat:@"%@Card %@", (c == validOtherCards.firstObject)?@"" : @", ", c.contents]];
+                }
+                
+                self.verbose = [self.verbose stringByAppendingString:[NSString stringWithFormat:@" for %d", matchScore?matchScore* MATCH_BONUS : -MISMATCH_PENALTY]];
             }
          
             

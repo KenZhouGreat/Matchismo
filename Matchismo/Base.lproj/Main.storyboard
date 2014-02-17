@@ -88,13 +88,13 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Score:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WmH-30-2cp">
-                                <rect key="frame" x="20" y="392" width="71" height="20"/>
+                                <rect key="frame" x="20" y="398" width="71" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="BEf-ye-Hwp">
-                                <rect key="frame" x="20" y="20" width="280" height="366"/>
+                                <rect key="frame" x="20" y="20" width="280" height="354"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="6" id="ufz-Uq-8dT">
@@ -116,7 +116,7 @@
                                 </cells>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mjl-My-vqv">
-                                <rect key="frame" x="269" y="391" width="31" height="21"/>
+                                <rect key="frame" x="269" y="401" width="31" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <state key="normal" title="Deal">
@@ -127,7 +127,7 @@
                                 </connections>
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="7DC-fa-rGw">
-                                <rect key="frame" x="99" y="387" width="123" height="29"/>
+                                <rect key="frame" x="99" y="394" width="123" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="2 Cards"/>
@@ -137,6 +137,12 @@
                                     <action selector="changeGameMode:" destination="iB5-Zt-gMe" eventType="valueChanged" id="R48-xI-jQe"/>
                                 </connections>
                             </segmentedControl>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w1f-uI-CnC">
+                                <rect key="frame" x="20" y="372" width="280" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -146,6 +152,7 @@
                         <outlet property="dealButton" destination="Mjl-My-vqv" id="s0i-83-ZJL"/>
                         <outlet property="gameModeSwtich" destination="7DC-fa-rGw" id="FFF-L9-jY4"/>
                         <outlet property="scoreLabel" destination="WmH-30-2cp" id="GUM-yF-4lw"/>
+                        <outlet property="verboseLabel" destination="w1f-uI-CnC" id="h1A-oe-lrC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C2m-nu-eLn" userLabel="First Responder" sceneMemberID="firstResponder"/>
