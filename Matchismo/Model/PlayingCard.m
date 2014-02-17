@@ -14,16 +14,33 @@
 -(int)match:(NSArray *)otherCards
 {
     int score = 0;
+    BOOL continueRankComparison = YES;
+    BOOL continueSuitComparison = YES;
     
     for (PlayingCard *pc in otherCards) {
-        if ([[pc suit] isEqualToString:[self suit]]) {
-            score += 1;
+        
+        if (![[pc suit] isEqualToString:[self suit]]) {
+            continueSuitComparison = NO;
         }
-        else if (pc.rank == self.rank){
-            score += 3;
+        
+        if (pc.rank != self.rank) {
+             continueRankComparison = NO;
         }
+        
+        if (!continueSuitComparison && !continueRankComparison) {
+            break;
+        }
+   
     }
     
+    if (continueRankComparison) {
+        score = otherCards.count * 3;
+    }
+    
+    if (continueSuitComparison) {
+        score = otherCards.count;
+    }
+
     return score;
 }
 
