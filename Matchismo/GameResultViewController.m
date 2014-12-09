@@ -13,6 +13,8 @@
 
 @property (strong, nonatomic) IBOutlet UITextView *display;
 
+
+
 @end
 
 @implementation GameResultViewController
@@ -50,5 +52,21 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (IBAction)sortByScoreAction:(id)sender {
+    
+}
+
+- (IBAction)sortByDateAction:(id)sender {
+    
+    
+}
+
+- (IBAction)sortByDurationAction:(id)sender {
+    
+}
+
+
+
 
 @end

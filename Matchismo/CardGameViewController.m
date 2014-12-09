@@ -19,7 +19,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *scoreLabel;
 
 
-@property (strong, nonatomic) IBOutlet KZ_UIRoudedButton *card;
+//@property (strong, nonatomic) IBOutlet KZ_UIRoudedButton *card;
 
 @property (strong, nonatomic) IBOutlet UICollectionView *cardCollectionView;
 @property (strong, nonatomic) IBOutlet UILabel *verboseLabel;
@@ -74,6 +74,7 @@ static CGFloat CARD_BUTTON_HEIGH = 80;
         [self updateUI];
     }
 }
+
 - (IBAction)flipCard:(id)sender {
     
     UIButton *btn= (UIButton *)sender;
