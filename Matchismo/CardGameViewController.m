@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Ken Zhou. All rights reserved.
 //
 
+#define CardGameViewController_protected
+
 #import "CardGameViewController.h"
 #import "KZ_UIRoudedButton.h"
 #import "PlayingCardDeck.h"
@@ -24,7 +26,7 @@
 @property (strong, nonatomic) IBOutlet UICollectionView *cardCollectionView;
 @property (strong, nonatomic) IBOutlet UILabel *verboseLabel;
 
-@property (strong, nonatomic) CardMatchingGame *game;
+
 @property (strong, nonatomic) IBOutlet UIButton *dealButton;
 
 @property (strong, nonatomic) GameResult *gameResult;
@@ -34,8 +36,8 @@
 
 @implementation CardGameViewController
 
-static CGFloat CARD_BUTTON_WIDTH = 60;
-static CGFloat CARD_BUTTON_HEIGH = 80;
+static CGFloat CARD_BUTTON_WIDTH = 45;
+static CGFloat CARD_BUTTON_HEIGH = 60;
 
 - (GameResult *)gameResult{
     if (!_gameResult) {
@@ -90,7 +92,6 @@ static CGFloat CARD_BUTTON_HEIGH = 80;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
 
     
     

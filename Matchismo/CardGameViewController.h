@@ -7,7 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CardMatchingGame.h"
 
 @interface CardGameViewController : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource>
 
+
 @end
+
+
+#ifdef CardGameViewController_protected
+
+@interface CardGameViewController()
+
+@property (strong, nonatomic) CardMatchingGame *game;
+
+@end
+
+#endif

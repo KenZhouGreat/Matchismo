@@ -63,10 +63,6 @@
             
             if ([validOtherCards count] == self.gameMode + 1) {
                 int matchScore = [card match:validOtherCards];
-                
-                
-                
-                
                 if (matchScore) {
                     card.unplayable = YES;
                     for (Card *c in validOtherCards) {
