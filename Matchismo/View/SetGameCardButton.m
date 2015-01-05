@@ -73,7 +73,7 @@
     float shadeAlpha;
     switch (card.shade) {
         case SetShadeShadowed:
-            shadeAlpha = 0.5f;
+            shadeAlpha = 0.2f;
             break;
             
         case SetShadeSolid:
@@ -110,7 +110,24 @@
     NSAttributedString *cardContent = [[NSAttributedString alloc] initWithString:patternString attributes:attr];
     
     [self setAttributedTitle:cardContent forState:UIControlStateNormal];
+
+    [self setBackgroundImage:[self imageWithColor:[UIColor grayColor]] forState:UIControlStateSelected];
+
     
+}
+
+- (UIImage *)imageWithColor:(UIColor *)color {
+    CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
 }
 
 
