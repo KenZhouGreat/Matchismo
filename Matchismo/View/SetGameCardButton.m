@@ -112,6 +112,7 @@
     [self setAttributedTitle:cardContent forState:UIControlStateNormal];
 
     [self setBackgroundImage:[self imageWithColor:[UIColor grayColor]] forState:UIControlStateSelected];
+    [self setBackgroundImage:[self imageWithColor:CLR_WASH_GREEN] forState:UIControlStateSelected|UIControlStateDisabled];
 
     
 }

@@ -10,20 +10,33 @@
 
 @implementation SetCardGame
 
-- (void) flipCardAtIndex:(NSUInteger)index{
-    //change card status
-    Card *card = [self cardAtIndex:index];
-    if (card) {
-        
+@synthesize gameMode = _gameMode;
+
+- (gameModeType)gameMode{
+    if (!_gameMode){
+        _gameMode = kThreeCardMode;
     }
-    
-    
-    //matching
-    //score
-    //verbose
-    
-    card.faceUp = !card.faceUp;
-    
+    return _gameMode;
 }
+
+//- (void) flipCardAtIndex:(NSUInteger)index{
+//    //change card status
+//    Card *card = [self cardAtIndex:index];
+//    if (card) {
+//        
+//    }
+//    
+//    
+//    //matching
+//    
+//    
+//    
+//    
+//    //score
+//    //verbose
+//    
+//    card.faceUp = !card.faceUp;
+//    
+//}
 
 @end

@@ -97,12 +97,12 @@
         for (UIButton *b in [cell.contentView subviews]) {
             
             if ([b isKindOfClass:[UIButton class]]) {
-                b.selected = card.faceUp;
+                [b setSelected:card.faceUp];
                 //2. playable/unplayable
                 [b setEnabled:!card.unplayable];
-                if (card.unplayable) {
-                    [b setAlpha:0.5];
-                }
+//                if (card.unplayable) {
+//                    [b setAlpha:0.5];
+//                }
             }
         }
     }
