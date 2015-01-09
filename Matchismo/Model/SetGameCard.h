@@ -45,6 +45,8 @@ typedef enum{
 
 @property (nonatomic) BOOL isSelected;
 
+@property (nonatomic, readonly) NSAttributedString *attributedContent;
+
 
 
 

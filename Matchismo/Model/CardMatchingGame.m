@@ -7,12 +7,7 @@
 //
 
 #import "CardMatchingGame.h"
-@interface CardMatchingGame()
-@property (readwrite, nonatomic) int score;
-@property (strong, nonatomic) NSMutableArray *cards; //of card
-@property (readwrite, nonatomic, getter = isGameStarted) BOOL gameStarted;
-@property (nonatomic, readwrite) NSString *verbose;
-@end
+#import "CardMatchingGame_Protected.h"
 
 
 
@@ -78,13 +73,18 @@
                     self.score -= MISMATCH_PENALTY;
                 }
                 
-                self.verbose = [NSString stringWithFormat:@"Card %@ %@", card.contents, matchScore? @"matches " : @"mismatches "];
+                NSString *verboseString;
+                
+                verboseString = [NSString stringWithFormat:@"Card %@ %@", card.contents, matchScore? @"matches " : @"mismatches "];
                 
                 for (Card *c in validOtherCards) {
-                    self.verbose = [self.verbose stringByAppendingString:[NSString stringWithFormat:@"%@Card %@", (c == validOtherCards.firstObject)?@"" : @", ", c.contents]];
+                    verboseString = [verboseString stringByAppendingString:[NSString stringWithFormat:@"%@Card %@", (c == validOtherCards.firstObject)?@"" : @", ", c.contents]];
                 }
                 
-                self.verbose = [self.verbose stringByAppendingString:[NSString stringWithFormat:@" for %d", matchScore?matchScore* MATCH_BONUS : -MISMATCH_PENALTY]];
+                verboseString = [verboseString stringByAppendingString:[NSString stringWithFormat:@" for %d", matchScore?matchScore* MATCH_BONUS : -MISMATCH_PENALTY]];
+                
+                self.verbose = [[NSAttributedString alloc] initWithString:verboseString];
+                
             }
          
             

@@ -110,7 +110,7 @@
     self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
     
     //verbose
-    self.verboseLabel.text = self.game.verbose;
+    self.verboseLabel.attributedText = self.game.verbose;
 }
 
 

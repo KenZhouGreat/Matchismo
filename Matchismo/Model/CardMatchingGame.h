@@ -29,6 +29,6 @@ typedef enum {
 @property (nonatomic, readonly) int score;
 @property (nonatomic) gameModeType gameMode;
 @property (nonatomic, getter = isGameStarted, readonly) BOOL gameStarted;
-@property (nonatomic, readonly) NSString *verbose;
+@property (nonatomic, readonly) NSAttributedString *verbose;
 
 @end

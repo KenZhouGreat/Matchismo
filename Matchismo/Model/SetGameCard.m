@@ -8,10 +8,112 @@
 
 #import "SetGameCard.h"
 
+@interface SetGameCard()
+@property (nonatomic, readwrite) NSAttributedString *attributedContent;
+
+@end
+
 @implementation SetGameCard
 
 
-#warning TODO: implement the match logic
+
+@synthesize attributedContent = _attributedContent;
+
+- (NSAttributedString*) attributedContent{
+    if (!_attributedContent) {
+        NSString *baseString;
+        NSString *patternString;
+        //set shape
+        
+        if (self.shade != SetShadeSolid ) {
+            switch (self.shape) {
+                case SetShapeCircle:
+                    baseString = @"○";
+                    break;
+                    
+                case SetShapeSquare:
+                    baseString = @"◻︎";
+                    break;
+                    
+                case SetShapeTriangle:
+                    baseString = @"△";
+                    break;
+                    
+                default:
+                    break;
+            }
+            
+        }
+        else{
+            switch (self.shape) {
+                case SetShapeCircle:
+                    baseString = @"●";
+                    break;
+                    
+                case SetShapeSquare:
+                    baseString = @"■";
+                    break;
+                    
+                case SetShapeTriangle:
+                    baseString = @"▲";
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+        
+        patternString = baseString;
+        //set number
+        for (int i = 1; i < self.number; i++) {
+            patternString = [patternString stringByAppendingString:baseString];
+        }
+        
+        //set shade
+        float shadeAlpha;
+        switch (self.shade) {
+            case SetShadeShadowed:
+                shadeAlpha = 0.2f;
+                break;
+                
+            case SetShadeSolid:
+                shadeAlpha = 1.0f;
+                break;
+                
+            default:
+                shadeAlpha = 1.0f;
+                break;
+        }
+        
+        //set colour
+        UIColor *patternColour;
+        switch (self.colour) {
+            case SetColourBlue:
+                patternColour = [UIColor blueColor];
+                break;
+                
+            case SetColourGreen:
+                patternColour = [UIColor greenColor];
+                break;
+                
+            case SetColourRed:
+                patternColour = [UIColor redColor];
+                break;
+                
+            default:
+                break;
+        }
+        
+        //setting the attributes for the nsattributed string which stands for the card face
+        NSDictionary *attr = @{NSForegroundColorAttributeName:[patternColour colorWithAlphaComponent:shadeAlpha]};
+        
+        _attributedContent = [[NSAttributedString alloc] initWithString:patternString attributes:attr];
+        
+    }
+    return _attributedContent;
+}
+
+
 - (int)match:(NSArray *)otherCards{
     int score = 0;
     

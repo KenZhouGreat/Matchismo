@@ -165,7 +165,7 @@ static CGFloat CARD_BUTTON_HEIGH = 60;
     self.gameModeSwtich.selectedSegmentIndex = self.game.gameMode;    
     self.gameModeSwtich.enabled = !self.game.isGameStarted;
     //verbose
-    self.verboseLabel.text = self.game.verbose;
+    self.verboseLabel.attributedText = self.game.verbose;
 }
 
 @end
