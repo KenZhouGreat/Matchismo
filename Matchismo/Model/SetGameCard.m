@@ -25,26 +25,7 @@
         NSString *patternString;
         //set shape
         
-        if (self.shade != SetShadeSolid ) {
-            switch (self.shape) {
-                case SetShapeCircle:
-                    baseString = @"○";
-                    break;
-                    
-                case SetShapeSquare:
-                    baseString = @"◻︎";
-                    break;
-                    
-                case SetShapeTriangle:
-                    baseString = @"△";
-                    break;
-                    
-                default:
-                    break;
-            }
-            
-        }
-        else{
+        if (self.shade != SetShadeNone ) {
             switch (self.shape) {
                 case SetShapeCircle:
                     baseString = @"●";
@@ -60,6 +41,27 @@
                     
                 default:
                     break;
+            }
+            
+        }
+        else{
+            switch (self.shape) {
+                
+                case SetShapeCircle:
+                    baseString = @"○";
+                    break;
+                    
+                case SetShapeSquare:
+                    baseString = @"◻︎";
+                    break;
+                    
+                case SetShapeTriangle:
+                    baseString = @"△";
+                    break;
+                    
+                default:
+                    break;
+
             }
         }
         
@@ -105,7 +107,18 @@
         }
         
         //setting the attributes for the nsattributed string which stands for the card face
-        NSDictionary *attr = @{NSForegroundColorAttributeName:[patternColour colorWithAlphaComponent:shadeAlpha]};
+        NSMutableDictionary *attr = [[NSMutableDictionary alloc] initWithDictionary: @{NSForegroundColorAttributeName:[patternColour colorWithAlphaComponent:shadeAlpha], NSFontAttributeName: [UIFont systemFontOfSize: [UIFont systemFontSize]]}];
+        
+        if ([baseString  isEqual: @"●"] ) {
+            [attr setObject:[UIFont systemFontOfSize: [UIFont systemFontSize] + 10] forKey:NSFontAttributeName];
+        }
+        
+        if ([baseString  isEqual: @"◻︎"]){
+            [attr setObject:[UIFont systemFontOfSize: [UIFont systemFontSize] + 5] forKey:NSFontAttributeName];
+        }
+        
+        
+
         
         _attributedContent = [[NSAttributedString alloc] initWithString:patternString attributes:attr];
         

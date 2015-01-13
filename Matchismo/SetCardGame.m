@@ -55,8 +55,8 @@
                     
                 }
                 else{
-                    for (Card *c in validOtherCards) {
-                        c.faceUp = NO;
+                    for (Card *c in [validOtherCards arrayByAddingObject:card] ) {
+                        c.faceUp = !c.faceUp;
                     }
                     self.score -= MISMATCH_PENALTY;
                 }
